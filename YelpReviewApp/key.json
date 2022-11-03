@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "corded-imagery-367413",
+  "private_key_id": "e8f83bcc6fd6cc4a5a5f164c534130b396c9f6a1",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCjegacIZVjEkYL\n3H/fMmhvK9iSnK6E9+3VKlIPGrmJixr4zdQOxhyFy4Gh+VWXHRAsTUUDe2CoNaHg\nNLgsAqM9KIE5I+haszXv5ZN3x5REphEc2xeiSLRJdVAupz7HF8UCEiqVjNtU04d9\ndRlrwAfwWOMmPwF7lkuIRXYrYyqi7m9aDsHenmPNOPZ1cJWPXLozuC6qH14EbfDk\nIwhR1iISZyCO1FQMskiE3wcLta87yieNI8nnQ65ykiQFHPVKqLhr+Rd+XffVxnb8\nwqV7KP7Biei/sGcY1o2OCw7E7TVqmqfeKEp4LIZxRzV3XLnngaeLF9YutVHb+qqE\nj9/G3P83AgMBAAECggEACEN6rQ7HieavvW7BKgEBeskpHUl9SuxrdyXjWFnIp4rC\nwMagIbpi+7fB+Z7sdC3nFjjhCbWFY8teP5f6oq2OyeB6c8R8Z4VSmdStjoBQtDhU\nJMobGObQR5GouCBX0eGXjFdrE/yMTm6TlURuQLOdfclIe4jzeWdWBxvtHBwFrjmx\nl957NB/SAEiKcPOPxGHN1mA/DA0tfT/KQnzRz84jn/BkiQX+kvVd0qOIJWEqPoFh\nxWJSW4v5iZTMrGPTEdciaZgT4xkbEule+36XHT66/eTSkfOjXv1C8is3n6fsTdOs\nbLc+3ccTAcpDJGc9Huu68udCtdaDZL6dpuNFrzn+WQKBgQDXcLacGRZ9CkqSCSK7\nbwBZQcHeyP/3Qrb25HPygD3mCRu4KOELSP68O8sthUC2FJi6NyLyZejW0Rl2GGCr\nAy0IMVmFfYA/YeXpIjfeU6AoW/xs4pt27ERO+9MjX8joRASejqoPfjkSVQv9TvRo\nMUmxcOAq7iPhVSoCtZukRTpyWQKBgQDCQOQ0C+aoLGIHu2Ulg0SFttpevqdGHRI2\nUP9Cy9DReweMm7FmSYimwHdVG6oNQdst79NLjp7Z1CnnQt8u3Aq7KJ5zh81Wd18m\n66pz0BwN5X8F9YKrerzhLTG3AyPrB853bGTM6/gA8SfDnS35ehWO5BiBX9JR6yf/\nVdFtX/EsDwKBgEJD+wcceFxRlApDIRnB1LufjEA4VvL45EogjsFiTKe62XnVqRLN\nivze72m6+OKIh0mPuAIS8oFQo6I9cU5olatVcpGqvo3AUPVafxC1bCe903Cyatsz\nZPdeYd0ZkzRN55XVj91gF7HZ0uxBItABiQc5DtplkUe36EoZDhyC5q1RAoGAKlgW\n5rmJaDN0kxbob4rzzuoTJAAPWptPswNpAViIhoF5Hc96lj+FSERAPw8uvIEUlCjp\nOFk4i2dSUxUirYZN2Ip8L9b0jdqrpUJN/7znwKe8TsI738F7luJRKgHHPJ6RBTtd\npcXyY9ItxthmgzF3rZRPOzR2FmFacLB2XI9DdUUCgYA5Me4XpQC+LkwhFneQShs8\nd00C8BsFB3CCdQIab58kNfkyssHJFLBjK3M9Ul+Y+BNrmJo3curTOjNrhBi2gh6W\nDZSsmFMBy9/AJoSH8XVGONIEg43BiuRU++hFUye3NDAv2Dk0ynbm/WA8fUFLApmI\nD6WS4BdLkFWpGOUIRwOcCA==\n-----END PRIVATE KEY-----\n",
+  "client_email": "yelp-reviews@corded-imagery-367413.iam.gserviceaccount.com",
+  "client_id": "107485394125160269160",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/yelp-reviews%40corded-imagery-367413.iam.gserviceaccount.com"
+}

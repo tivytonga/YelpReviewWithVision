@@ -1,0 +1,54 @@
+﻿@page "/jsonformat"
+
+@inject IHttpClientFactory _clientFactory
+
+<h1>Yelp Reviews in Json Format</h1>
+
+@if (string.IsNullOrWhiteSpace(errorString) == false)
+{
+    <div class="h2">@errorString</div>
+}
+else if (review is null)
+{
+    <div class="h3">Loading...</div>
+}
+else
+{
+    @json;
+}
+
+@code {
+
+    YelpModel review;
+    string errorString;
+    string resultAsString;
+    string formatted;
+    string json;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var request = new HttpRequestMessage(HttpMethod.Get, "https://api.yelp.com/v3/businesses/J2pqwykBWzqd-vq6N_iETQ/reviews");
+
+        var client = _clientFactory.CreateClient(); // either pull existing client out or create a new client, avoids socket issues by properly opening and closing clients
+
+        client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", "JxIxt0jnNBl4AYJyD28c006sQ-r1ayEhMccxc1QunUrCHK9KlxPrgkwz9OuOaY_NGyWpqSlr9yPYorct3eyQLjb4SpJH3p19W2WNkxNu-dK97AnxJ4YWEey4vbRhY3Yx");
+
+        HttpResponseMessage response = await client.SendAsync(request); //send request out and get response back
+
+        if (response.IsSuccessStatusCode) // 200, 201, etc
+        {
+            resultAsString = await response.Content.ReadAsStringAsync();
+            review = Newtonsoft.Json.JsonConvert.DeserializeObject<YelpModel>(resultAsString);
+            json = Newtonsoft.Json.JsonConvert.SerializeObject(review, Newtonsoft.Json.Formatting.Indented);
+            errorString = null;
+        }
+        else
+        {
+            errorString = $"There was an error getting the Yelp reviews: { response.ReasonPhrase }";
+        }
+
+        //formatted = JsonValueKind
+
+    }
+
+}

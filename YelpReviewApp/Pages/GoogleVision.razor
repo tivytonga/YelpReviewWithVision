@@ -1,0 +1,49 @@
+﻿@using Google.Cloud.Vision.V1;
+
+@page "/vision"
+
+@inject IHttpClientFactory _clientFactory
+
+<h1>Google Vision Example</h1>
+
+
+<img class="img-fluid img-thumbnail" src="@imgUrl" />
+<p>Image Credit: <a href="@imgUrl">Pexels.com</a></p>
+
+<h3>
+    Anger Likelihood: @anger <br />
+    Joy Likelihood: @joy <br />
+    Sorrow Likelihood: @sorrow <br />
+    Surprise Likelihood: @surprise
+</h3>
+<br /><br /><br />
+
+
+
+
+@code {
+    string imgUrl = "https://images.pexels.com/photos/3907674/pexels-photo-3907674.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1";
+
+    string anger;
+    string joy;
+    string sorrow;
+    string surprise;
+
+    IReadOnlyList<FaceAnnotation> response;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var client = ImageAnnotatorClient.Create();
+        var image = Image.FetchFromUri(imgUrl);
+
+        response = client.DetectFaces(image);
+
+        foreach (var annotation in response)
+        {
+            anger += annotation.AngerLikelihood;
+            joy += annotation.JoyLikelihood;
+            sorrow += annotation.SorrowLikelihood;
+            surprise += annotation.SurpriseLikelihood;
+        }
+    }
+}

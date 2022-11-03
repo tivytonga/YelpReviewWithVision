@@ -1,0 +1,103 @@
+﻿@using Google.Cloud.Vision.V1;
+
+@page "/reviews"
+
+@inject IHttpClientFactory _clientFactory
+
+<h1>Yelp Reviews Data</h1>
+
+@if (string.IsNullOrWhiteSpace(errorString) == false)
+{
+    <div class="h2">@errorString</div>
+}
+else if (review is null)
+{
+    <div class="h3">Loading...</div>
+}
+else
+            {
+                <table class="table table-striped">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>Profile Picture</th>
+                            <th>User</th>
+                            <th>Emotions</th>
+                            <th>Date</th>
+                            <th>Rating</th>
+                            <th>Review</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var r in review.reviews)
+                        {
+                            <tr>
+                                <td><img class="img-thumbnail" src="@r.user.image_url" /></td>
+                                <td>@r.user.name</td>
+                                <td>Anger: @r.user.emotion.angerLikelihood<br />
+                                    Joy: @r.user.emotion.joyLikelihood<br />
+                                Sorrow: @r.user.emotion.sorrowLikelihood<br />
+                                Surprise: @r.user.emotion.surpriseLikelihood</td>
+                                <td>@r.time_created</td>
+                                <td>@r.rating</td>
+                                <td>@r.text</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+
+
+@code {      
+
+    YelpModel review;
+    VisionModel emotion;
+    string errorString;
+    string resultAsString;
+    Image visionImage;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var request = new HttpRequestMessage(HttpMethod.Get, "https://api.yelp.com/v3/businesses/J2pqwykBWzqd-vq6N_iETQ/reviews");
+
+        var client = _clientFactory.CreateClient(); // either pull existing client out or create a new client, avoids socket issues by properly opening and closing clients
+
+        client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", "JxIxt0jnNBl4AYJyD28c006sQ-r1ayEhMccxc1QunUrCHK9KlxPrgkwz9OuOaY_NGyWpqSlr9yPYorct3eyQLjb4SpJH3p19W2WNkxNu-dK97AnxJ4YWEey4vbRhY3Yx");
+
+        HttpResponseMessage response = await client.SendAsync(request); //send request out and get response back
+
+        if (response.IsSuccessStatusCode) // 200, 201, etc
+        {
+            resultAsString = await response.Content.ReadAsStringAsync();
+            review = Newtonsoft.Json.JsonConvert.DeserializeObject<YelpModel>(resultAsString);
+            errorString = null;
+
+        }
+        else
+        {
+            errorString = $"There was an error getting the Yelp reviews: { response.ReasonPhrase }";
+        }
+
+        // add get emotions data
+        foreach (var r in review.reviews)
+        {
+            visionImage = Image.FetchFromUri(r.user.image_url);
+            Console.WriteLine("Review user image: "+ visionImage.ToString());
+
+            var visionClient = ImageAnnotatorClient.Create();
+            IReadOnlyList<FaceAnnotation> visionResponse = visionClient.DetectFaces(visionImage);
+
+            r.user.emotion = new VisionModel();
+
+            if (visionResponse.Count > 0)
+            {
+                foreach (var annotation in visionResponse)
+                {
+                    r.user.emotion.angerLikelihood = annotation.AngerLikelihood.ToString();
+                    r.user.emotion.joyLikelihood = annotation.JoyLikelihood.ToString();
+                    r.user.emotion.sorrowLikelihood = annotation.SorrowLikelihood.ToString();
+                    r.user.emotion.surpriseLikelihood = annotation.SurpriseLikelihood.ToString();
+                }
+            }
+        }
+    }
+}
